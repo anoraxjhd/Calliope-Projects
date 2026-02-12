@@ -1,16 +1,17 @@
-
 def on_button_a():
     global x2
-    PlayerUpdatePixels(x2, y2)
-    x2 += -1
-    PlayerUpdatePixels(x2, y2)
+    if not (x2 - 1 < 0):
+        PlayerUpdatePixels(x2, y2)
+        x2 += -1
+        PlayerUpdatePixels(x2, y2)
 input.on_button_event(Button.A, input.button_event_click(), on_button_a)
 
 def on_button_b():
     global x2
-    PlayerUpdatePixels(x2, y2)
-    x2 += 1
-    PlayerUpdatePixels(x2, y2)
+    if not (x2 + 1 > 4):
+        PlayerUpdatePixels(x2, y2)
+        x2 += 1
+        PlayerUpdatePixels(x2, y2)
 input.on_button_event(Button.B, input.button_event_click(), on_button_b)
 
 def PlayerUpdatePixels(x: number, y: number):
@@ -46,10 +47,24 @@ def on_forever():
         Score += 1
     if Score == 10:
         basic.set_led_color(basic.rgb(0, 255, 0))
+        basic.show_leds("""
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            """)
         basic.show_string("Gewonnen!")
         control.reset()
     if Enemy_1_Y >= 5:
         basic.set_led_color(basic.rgb(255, 0, 0))
+        basic.show_leds("""
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            . . . . .
+            """)
         basic.show_string("Verloren!")
         control.reset()
 basic.forever(on_forever)
